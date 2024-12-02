@@ -61,7 +61,6 @@ class RpgCharacter extends SimpleColors {
    */
   constructor() {
     super();
-    this.literalseed = false;
     this.height = 142;
     this.width = 113;
     this.accessories = 0;
@@ -72,38 +71,22 @@ class RpgCharacter extends SimpleColors {
     this.pants = 0;
     this.shirt = 0;
     this.skin = 0;
-    this.accentColor = "orange";
-    this.seed = null;
     this.walking = false;
     this.leg = "";
     this.speed = 500;
-    this.__walkingTimeout = null;
     this.circle = false;
-    this.hat = "none";
+    this.hat = `none`;
     this.hatColor = 0;
     this.demo = false;
     this.fire = false;
-    if (globalThis.matchMedia) {
-      this.reduceMotion = globalThis.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-      ).matches;
-    }
   }
 
-  randomColor(seed = null) {
-    if (seed === null) {
-      seed = "" + Math.floor(Math.random() * Object.keys(this.colors).length);
-    }
-    return Object.keys(this.colors)[seed];
-  }
 
   static get properties() {
     return {
       ...super.properties,
-      literalseed: { type: Boolean },
+      
       accessories: { type: Number },
-      height: { type: Number },
-      width: { type: Number },
       base: { type: Number },
       face: { type: Number },
       faceItem: { type: Number },
@@ -115,12 +98,11 @@ class RpgCharacter extends SimpleColors {
       hat: { type: String },
       walking: { type: Boolean, reflect: true },
       leg: { type: String },
-      seed: { type: String, reflect: true },
       speed: { type: Number },
       circle: { type: Boolean, reflect: true },
       fire: { type: Boolean, reflect: true },
       demo: { type: Boolean },
-      reduceMotion: { type: Boolean },
+  
     };
   }
   /**
