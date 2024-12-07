@@ -1,5 +1,5 @@
 {
-    "name": "@yourOrganization/rpg-me",
+    "name": "rpg-me",
     "version": "0.0.0",
     "description": "Webcomponent rpg-me following hax / open-wc recommendations",
     "license": "Apache-2.0",
@@ -16,8 +16,8 @@
         "url": "https://github.com/samsantivasci/rpg-me"
     },
     "type": "module",
-    "main": "rpg-me.js",
-    "module": "rpg-me.js",
+    "main": "rpg-new.js",
+    "module": "rpg-new.js",
     "scripts": {
         "start": "web-dev-server",
         "build": "rimraf public && rollup -c rollup.config.js && npm run analyze",
@@ -31,6 +31,7 @@
         "@haxtheweb/i18n-manager": "^9.0.13",
         "@haxtheweb/rpg-character": "^9.0.18",
         "lit": "^3.2.0",
+        "wired-combo": "^2.1.0",
         "wired-elements": "^3.0.0-rc.6"
     },
     "devDependencies": {
