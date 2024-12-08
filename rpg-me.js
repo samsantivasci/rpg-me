@@ -49,19 +49,18 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           font-family: var(--ddd-font-secondary);
         }
         .container {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 24px;
-          justify-content: center;
-          align-items: flex-start;
+          display: internal;
+          flex-wrap: nowrap;
+          gap: 16px;
+          justify-content: right;
           padding: 20px;
           overflow: visible;
         }
         .character-preview {
-          flex: 1;
+          flex: none;
           min-width: 300px;
           text-align: center;
-          position: relative;
+          position: left;
         }
         .character-preview rpg-character {
           height: var(--character-size, 200px);
@@ -114,7 +113,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           color: navy;
         }
         .notification {
-          position: fixed;
+          position: right;
           bottom: 20px;
           right: 20px;
           background-color: var(--ddd-theme-defauly-coalyGray);
@@ -157,6 +156,8 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
             placeholder="Enter character name"
             @input="${(e) => this._updateSetting('name', e.target.value)}"
           ></wired-input>
+          <div></div>
+          <div></div>
 
           <wired-checkbox
             id="hairToggle"
