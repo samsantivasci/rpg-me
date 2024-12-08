@@ -110,10 +110,10 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         .character-name {
           font-size: 32px;
           margin-bottom: 10px;
-          color: navy;
+          color: var(--ddd-theme-defauly-coalyGray);
         }
         .notification {
-          position: right;
+          position: fixed;
           bottom: 20px;
           right: 20px;
           background-color: var(--ddd-theme-defauly-coalyGray);
