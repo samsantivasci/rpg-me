@@ -49,10 +49,10 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           font-family: var(--ddd-font-secondary);
         }
         .container {
-          display: internal;
-          flex-wrap: nowrap;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           gap: 16px;
-          justify-content: right;
+          justify-content: left;
           padding: 20px;
           overflow: visible;
         }
@@ -60,7 +60,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           flex: none;
           min-width: 300px;
           text-align: center;
-          position: left;
+          position: center;
         }
         .character-preview rpg-character {
           height: var(--character-size, 200px);
@@ -73,13 +73,16 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           text-align: left;
         }
         wired-input,
+        wired-checkbox,
         wired-toggle,
         wired-slider,
         wired-combo {
           display: inline block;
           margin-bottom: 15px;
           max-width: 300px;
-        
+        }
+        wired-item{
+          opacity: 1;
         }
         .custom {
       --wired-toggle-off-color: red;
@@ -130,6 +133,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
     return html`
       <div class="container">
         <div class="character-preview">
+        <div class="seed-display">Seed: ${this.settings.seed}</div>
           <div class="character-name">${this.settings.name}</div>
           <rpg-character
             base="${this.settings.base}"
@@ -143,7 +147,6 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
             .walking="${this.settings.walking}"
             style="
               --character-size: ${this.settings.size}px;
-              --eye-color: hsl(${this.settings.eyeColor}, 100%, 50%);
               --hat-color: hsl(${this.settings.hatColor}, 100%, 50%);
             "
           ></rpg-character>
@@ -179,9 +182,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
        <wired-combo
           id="face"
           value="${this.settings.face}"
-          min="0"
-          max="5"
-          @selected="${(e) => this._updateSetting('face', parseInt(e.detail.value))}">
+          @selected="${(e) => this._updateSetting('face', parseInt(e.detail.selected))}">
        <wired-item value="0" text="0"></wired-item>
        <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -193,9 +194,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           <wired-combo
             id="faceitem"
             value="${this.settings.faceitem}"
-            min="0"
-            max="9"
-            @selected="${(e) => this._updateSetting('faceitem', parseInt(e.detail.value))}">
+            @selected="${(e) => this._updateSetting('faceitem', parseInt(e.detail.selected))}">
        <wired-item value="0" text="0"></wired-item>
        <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -212,7 +211,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           <wired-combo
             id="hair"
             value="${this.settings.hair}"
-            @selected="${(e) => this._updateSetting('hair', parseInt(e.detail.value))}">
+            @selected="${(e) => this._updateSetting('hair', parseInt(e.detail.selected))}">
          <wired-item value="0">0</wired-item>
          <wired-item value="1">1</wired-item>
          <wired-item value="2">2</wired-item>
@@ -225,7 +224,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         <wired-combo
          id="pants"
          value="${this.settings.pants}"
-         @selected="${(e) => this._updateSetting('pants', parseInt(e.detail.value))}">
+         @selected="${(e) => this._updateSetting('pants', parseInt(e.detail.selected))}">
        <wired-item value="0" text="0"></wired-item>
        <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -242,7 +241,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
       <wired-combo
         id="shirt"
         value="${this.settings.shirt}"
-        @selected="${(e) => this._updateSetting('shirt', parseInt(e.detail.value))}">
+        @selected="${(e) => this._updateSetting('shirt', parseInt(e.detail.selected))}">
        <wired-item value="0" text="0"></wired-item>
        <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -259,7 +258,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
        <wired-combo
             id="skin"
             value="${this.settings.skin}"
-            @selected="${(e) => this._updateSetting('skin', parseInt(e.detail.value))}">
+            @selected="${(e) => this._updateSetting('skin', parseInt(e.detail.selected))}">
        <wired-item value="0" text="0"></wired-item>
        <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -278,7 +277,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         value="${this.settings.hatColor}"
         min="0";
         max="9";
-        @selected="${(e) => this._updateSetting('hatColor', parseInt(e.detail.value))}">
+        @selected="${(e) => this._updateSetting('hatColor', parseInt(e.detail.selected))}">
         <wired-item value="0" text="0"></wired-item>
         <wired-item value="1">1</wired-item>
        <wired-item value="2">2</wired-item>
@@ -290,16 +289,20 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
        <wired-item value="8">8</wired-item>
        <wired-item value="9">9</wired-item>
         </wired-combo>
-      
-          <wired-toggle 
+              <div></div>
+
+          <wired-checkbox
             ?checked="${this.settings.fire}"
             @change="${(e) => this._updateSetting('fire', e.target.checked)}"
-          >On Fire</wired-toggle>
+          >On Fire</wired-checkbox>
 
-          <wired-toggle
+          <div></div>
+
+          <wired-checkbox
             ?checked="${this.settings.walking}"
             @change="${(e) => this._updateSetting('walking', e.target.checked)}"
-          >Walking</wired-toggle>
+          >Walking</wired-checkbox>
+              <div></div>
 
           <button @click="${this._generateShareLink}">
             Generate Share Link
@@ -329,7 +332,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           id="${control.key}"
           selected="${this.settings[control.key]}"
           @selected="${(e) =>
-            this._updateSetting(control.key, parseInt(e.detail.value))}"
+            this._updateSetting(control.key, parseInt(e.detail.selected))}"
         >
           ${Array.from(
             { length: control.max - control.min + 1 },
