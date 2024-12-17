@@ -50,7 +50,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         }
         .container {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr 60px;
           gap: 16px;
           justify-content: left;
           padding: 20px;
@@ -68,6 +68,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           transition: height 0.3s ease, width 0.3s ease;
         }
         .controls {
+          display: grid;
           flex: 1;
           min-width: 300px;
           text-align: left;
@@ -77,12 +78,13 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         wired-toggle,
         wired-slider,
         wired-combo {
-          display: inline block;
+        
           margin-bottom: 15px;
           max-width: 300px;
         }
         wired-item{
           opacity: 1;
+       
         }
         .custom {
       --wired-toggle-off-color: red;
