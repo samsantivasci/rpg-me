@@ -49,8 +49,7 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
           font-family: var(--ddd-font-secondary);
         }
         .container {
-          display: grid;
-          grid-template-columns: 1fr 60px;
+          
           gap: 16px;
           justify-content: left;
           padding: 20px;
@@ -78,7 +77,8 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
         wired-toggle,
         wired-slider,
         wired-combo {
-        
+          display: grid;
+          grid-template-columns: 240px 60px;
           margin-bottom: 15px;
           max-width: 300px;
         }
@@ -136,7 +136,6 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
       <div class="container">
         <div class="character-preview">
         <div class="seed-display">Seed: ${this.settings.seed}</div>
-          <div class="character-name">${this.settings.name}</div>
           <rpg-character
             base="${this.settings.base}"
             face="${this.settings.face}"
@@ -153,15 +152,6 @@ export class RpgNew extends DDDSuper(I18NMixin(LitElement)) {
             "
           ></rpg-character>
         </div>
-        <div class="controls">
-          <label for="characterNameInput">Character Name:</label>
-          <wired-input
-            id="characterNameInput"
-            type="text"
-            placeholder="Enter character name"
-            @input="${(e) => this._updateSetting('name', e.target.value)}"
-          ></wired-input>
-          <div></div>
           <div></div>
 
           <wired-checkbox
